@@ -1,0 +1,57 @@
+{
+  "name": "vue",
+  "version": "0.1.0",
+  "private": true,
+  "author": "WangYP",
+  "scripts": {
+    "serve": "cross-env process.env.ENV=prod process.env.PROXY=true vue-cli-service serve",
+    "test": "cross-env process.env.ENV=dev process.env.PROXY=true vue-cli-service serve",
+    "build": "cross-env process.env.ENV=prod process.env.PROXY=false vue-cli-service build",
+    "build-test": "cross-env process.env.ENV=dev process.env.PROXY=false vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "qs": "^6.5.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.1",
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "*"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-import": "^1.13.3",
+    "cross-env": "^7.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.1",
+    "svg-sprite-loader": "^6.0.6",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "no-debugger": 0
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

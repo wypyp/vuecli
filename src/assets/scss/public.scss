@@ -1,0 +1,31 @@
+.flex{
+  display: flex;
+}
+.float-left{
+  float: left;
+}
+.float-right{
+  float: right;
+}
+.clearfix:after {
+  content: '';
+  display: block;
+  height:0;
+  clear:both;
+  visibility: hidden;
+}
+.clearfix {
+  *zoom:1;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+}
+.disabled{
+  opacity: .5;
+}
+.weight600{
+  font-weight: 600;
+}
