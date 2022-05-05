@@ -1,5 +1,13 @@
+/*
+ * @Author: WangYP
+ * @Date: 2021-09-22 15:01:14
+ * @LastEditors: ZhouJG
+ * @LastEditTime: 2022-05-05 11:04:42
+ * @Description: 描述信息
+ * @FilePath: /vuecli/src/router/index.js
+ */
 import Vue from 'vue';
-import routes from './routes';
+import { routes } from './routes';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -16,6 +24,10 @@ router.beforeResolve((to, from, next) => {
 });
 
 router.beforeEach((to, from, next) => {
+  const { query } = to;
+  if (query && query.token ) {
+    localStorage.setItem('token', query.token)
+  }
   next();
 });
 

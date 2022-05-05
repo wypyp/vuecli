@@ -1,3 +1,11 @@
+<!--
+ * @Author: WangYP
+ * @Date: 2021-09-22 15:35:16
+ * @LastEditors: ZhouJG
+ * @LastEditTime: 2021-09-26 23:02:39
+ * @Description: 描述信息
+ * @FilePath: /vuecli/src/views/index/index.vue
+-->
 <template>
   <div class="index">
     <svg-icon name="verify-success" class-name="verify-success-icon"></svg-icon>
@@ -33,7 +41,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="less">
 .index{
   .verify-success-icon{
     font-size: 50px;

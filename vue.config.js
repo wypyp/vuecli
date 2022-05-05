@@ -1,3 +1,11 @@
+/*
+ * @Author: WangYP
+ * @Date: 2021-09-22 15:17:08
+ * @LastEditors: ZhouJG
+ * @LastEditTime: 2021-09-26 23:42:59
+ * @Description: 描述信息
+ * @FilePath: /vuecli/vue.config.js
+ */
 const path = require('path');
 const cumputedProxy = require('./src/proxy/index').cumputedProxy;
 const webpack = require('webpack');
@@ -17,13 +25,21 @@ const config = {
     //   chunkFilename: `css/[name].css?[${computHashName()}]`
     // },
     loaderOptions: {
-      sass: {
-        additionalData: `@import "@/assets/scss/index.scss";`,
+      less: {
+        lessOptions: {
+          javascriptEnabled: true
+        }
       }
     },
+    // loaderOptions: {
+    //   // sass: {
+    //   //   additionalData: `@import "@/assets/less/index.less";`,
+    //   // }
+    // },
     extract: false
   },
-  productionSourceMap: process.env.NODE_ENV === 'production' ? false : true,
+  productionSourceMap: true,
+  // productionSourceMap: process.env.NODE_ENV === 'production' ? false : true,
   chainWebpack: config => {
     config.module
       .rule('svg')

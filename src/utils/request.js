@@ -1,3 +1,11 @@
+/*
+ * @Author: WangYP
+ * @Date: 2021-09-22 15:33:12
+ * @LastEditors: ZhouJG
+ * @LastEditTime: 2022-05-05 14:49:45
+ * @Description: 描述信息
+ * @FilePath: /vuecli/src/utils/request.js
+ */
 import axios from 'axios';
 import { randomStr } from '@/utils';
 const proxyReplace = require('../proxy/index').proxyReplace;
@@ -46,6 +54,7 @@ service.interceptors.request.use(
 		// }
 		config.params.randomStr = requestId;
 		// config.headers['token'] = store.state.loginToken;
+		config.headers['token'] = localStorage.getItem('token');
 		return config;
   },
 	error => Promise.reject({ msg: error.message })
@@ -55,8 +64,8 @@ service.interceptors.request.use(
 service.interceptors.response.use(
 	response => {
 		// closeLoading(response.config.params.randomStr);
-		const { data } = response.data;
-		return Promise.resolve(data);
+		// const {data } = response.data;
+		return Promise.resolve(response.data);
 		// let toastMessage = message || 'server error';
 		// if ((new RegExp(`/roxe-kyc/`).test(url) && rucEnum[code]) || (new RegExp(`/file-storage-service/`).test(url) && rucEnum[code])) {
 		// 	toastMessage = rucEnum[code]
