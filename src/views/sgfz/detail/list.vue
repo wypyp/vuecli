@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2022-04-22 00:00:06
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-05 15:00:29
+ * @LastEditTime: 2022-05-06 14:40:13
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/detail/list.vue
 -->
@@ -61,12 +61,12 @@ export default {
       type: Object,
       default () {
         return {
-          qukuai:'',
-          wellType: '',
-          wellPurpose:'',
-          completionWellDate:0,
-          wellId:'',
-          stuckPointHorizon:''
+          geoDescription:null,
+          wellType: null,
+          wellPurpose:null,
+          completionWellDate:null,
+          wellName:null,
+          stuckPointHorizon:null
         }
       }
     }
@@ -76,7 +76,7 @@ export default {
       cols: [
         { props: "geoDescription", label: "构造带" },
         { props: "structurePos", label: "圈闭/构造" },
-        { props: "id", label: "井号" },
+        { props: "wellName", label: "井号" },
         {
           label: "卡钻情况",
           child: [
@@ -107,7 +107,6 @@ export default {
           ],
         },
       ],
-      currentPage: 4,
     };
   },
   methods: {

@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2022-04-21 23:56:12
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-05 17:09:45
+ * @LastEditTime: 2022-05-06 15:22:23
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/detail/search.vue
 -->
@@ -40,20 +40,16 @@
         </el-select>
       </el-form-item>
       <el-form-item label="完井年份" prop="completionWellDate">
-        <el-select v-model="value.completionWellDate">
-          <el-option
-            v-for="(item, index) in config.completionWellDate"
-            :key="index"
-            :label="item"
-            :value="item"
-          ></el-option>
-        </el-select>
+        <el-date-picker
+          value-format="yyyy"
+          v-model="value.completionWellDate"
+          type="year"
+          placeholder="选择年"
+        >
+        </el-date-picker>
       </el-form-item>
-      <el-form-item label="井号" prop="wellId">
-        <el-input
-          v-model="value.wellId"
-          placeholder="井号"
-        ></el-input>
+      <el-form-item label="井号" prop="wellName">
+        <el-input v-model="value.wellName" placeholder="井号"></el-input>
       </el-form-item>
       <el-form-item label="层位" prop="stuckPointHorizon">
         <el-select v-model="value.stuckPointHorizon">
@@ -92,7 +88,7 @@ export default {
           wellType: null,
           wellPurpose: null,
           completionWellDate: null,
-          wellId: null,
+          wellName: null,
           stuckPointHorizon: null,
         };
       },
@@ -100,44 +96,11 @@ export default {
   },
   data() {
     return {
-      rules: {
-        geoDescription: [{ required: true, message: "qukuai", trigger: "change" }],
-        wellType: [
-          { required: true, message: "请选择活动区域", trigger: "change" },
-        ],
-        wellPurpose: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择日期",
-            trigger: "change",
-          },
-        ],
-        completionWellDate: [
-          {
-            type: "date",
-            required: true,
-            message: "请选择时间",
-            trigger: "change",
-          },
-        ],
-        wellId: [
-          {
-            type: "array",
-            required: true,
-            message: "请至少选择一个活动性质",
-            trigger: "change",
-          },
-        ],
-        stuckPointHorizon: [
-          { required: true, message: "请选择活动资源", trigger: "change" },
-        ],
-      },
     };
   },
   methods: {
     onSubmit() {
-      this.$emit("onSearch", this.value,'search');
+      this.$emit("onSearch", this.value, "search");
     },
     onReset() {
       this.$refs.detailsSearch.resetFields();

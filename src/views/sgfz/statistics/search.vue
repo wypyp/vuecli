@@ -2,15 +2,23 @@
  * @Author: WangYP
  * @Date: 2022-04-21 23:56:12
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-05 17:46:51
+ * @LastEditTime: 2022-05-06 18:18:35
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/statistics/search.vue
 -->
 <template>
   <div class="detail-search">
     <el-form inline :model="value" ref="detailsSearch">
-      <el-form-item label="井号" prop="wellId">
-        <el-input v-model="value.wellId" placeholder="井号"></el-input>
+      <el-form-item label="井号" prop="wellName">
+        <el-select v-model="value.wellName" multiple placeholder="多井选择">
+          <el-option
+            v-for="(item, index) in config.wellName"
+            :key="index"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="井型" prop="wellType">
         <el-select v-model="value.wellType">
@@ -33,14 +41,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="完井年份" prop="completionWellDate">
-        <el-select v-model="value.completionWellDate">
-          <el-option
-            v-for="(item, index) in config.completionWellDate"
-            :key="index"
-            :label="item"
-            :value="item"
-          ></el-option>
-        </el-select>
+        <el-date-picker
+          value-format="yyyy"
+          v-model="value.completionWellDate"
+          type="year"
+          placeholder="选择年"
+        >
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="钻井液类型" prop="stuckPointHorizon">
         <el-select v-model="value.stuckPointHorizon">
@@ -61,13 +68,14 @@
             v-for="(item, index) in config.returnField"
             :label="item.value"
             :key="index"
-            :value='item.value'
+            :value="item.value"
             >{{ item.label }}</el-checkbox
           >
         </el-checkbox-group>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">统计</el-button>
+        <el-button type="primary" @click="onSubmit('reset')">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -90,8 +98,8 @@ export default {
         return {
           wellType: null,
           wellPurpose: null,
-          completionWellDate:null,
-          wellId: null,
+          completionWellDate: null,
+          wellName: [],
           stuckPointHorizon: null,
           returnField: [],
         };
@@ -99,19 +107,15 @@ export default {
     },
   },
   data() {
-    return {
-      rules: {
-      },
-    };
+    return {};
   },
-  created(){
-  },
+  created() {},
   methods: {
     handleCheckedCitiesChange(value) {
       this.$emit("checkBox", value);
     },
-    onSubmit() {
-      this.$emit("onSearch", this.value);
+    onSubmit(reset) {
+      this.$emit("onSearch",reset);
     },
   },
 };

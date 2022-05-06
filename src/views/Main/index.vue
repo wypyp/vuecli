@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2021-09-22 15:12:44
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-04-28 16:33:00
+ * @LastEditTime: 2022-05-06 14:16:53
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/Main/index.vue
 -->
@@ -29,7 +29,7 @@
         <router-view />
       </div>
     </div>
-    <div>尾部</div>
+    <div></div>
   </div>
 </template>
 

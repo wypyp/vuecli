@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2022-04-21 23:56:12
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-05 18:05:26
+ * @LastEditTime: 2022-05-06 18:16:59
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/statistics/search2.vue
 -->
@@ -19,8 +19,16 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="井号" prop="wellId">
-        <el-input v-model="value.wellId" placeholder="井号"></el-input>
+      <el-form-item label="井号" prop="wellName">
+        <el-select v-model="value.wellName" multiple placeholder="多井选择">
+          <el-option
+            v-for="(item, index) in config.wellName"
+            :key="index"
+            :label="item"
+            :value="item"
+          >
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="选择维度" prop="returnField">
         <el-checkbox-group
@@ -38,6 +46,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">统计</el-button>
+        <el-button type="primary" @click="onReset">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -59,7 +68,7 @@ export default {
       default() {
         return {
           structurePos: null,
-          wellId: null,
+          wellName: [],
           returnField: [],
         };
       },
@@ -67,8 +76,7 @@ export default {
   },
   data() {
     return {
-      rules: {
-      },
+      rules: {},
     };
   },
   methods: {
