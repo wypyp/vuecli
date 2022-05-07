@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2022-04-22 00:00:06
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-06 17:49:12
+ * @LastEditTime: 2022-05-07 14:58:52
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/statistics/list.vue
 -->
@@ -18,6 +18,7 @@
     >
       <template v-for="(col, index) in first">
         <el-table-column
+          header-align="center"
           :key="index"
           :fixed="col.fixed"
           v-if="col.isShow"
@@ -67,7 +68,7 @@ export default {
         };
       }
       if (column.property === "total") {
-         row.total = "("+row.rowspan + "条)";
+        row.total = "(" + row.rowspan + "条)";
         return {
           rowspan: row.rowspan,
           colspan: 1,
@@ -75,29 +76,29 @@ export default {
       }
     },
     changeHeaderStyles(row) {
-      var styleObj = {"background-color": "rgb(245,247,250","color":'grey'}
+      var styleObj = { "background-color": "rgb(245,247,250", color: "grey" };
       if (this.searchData.returnField.includes(row.column.property)) {
-        styleObj.color = "blue"
+        styleObj.color = "blue";
       }
       var textString = ["井号", "构造带", "圈闭/构造"];
       if (textString.includes(row.column.label)) {
-        styleObj.color = "rgb(254,38,254)"
+        styleObj.color = "rgb(254,38,254)";
       }
-      if(row.column.property === 'wellName'){
-        styleObj['border-right'] = "none"
-        styleObj['width'] = "80px"
+      if (row.column.property === "wellName") {
+        styleObj["border-right"] = "none";
+        styleObj["width"] = "80px";
       }
-      return styleObj
+      return styleObj;
     },
     changeCellStyles(row) {
       if (this.searchData.returnField.includes(row.column.property)) {
         return "color:blue";
       }
-      if(row.column.property === 'wellName'){
+      if (row.column.property === "wellName") {
         return {
           "border-right": "none",
-          "color":'rgb(254,38,254)',
-          }
+          color: "rgb(254,38,254)",
+        };
       }
       var textString = ["total"];
       if (textString.includes(row.column.property)) {

@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2022-04-21 23:56:12
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-06 15:22:23
+ * @LastEditTime: 2022-05-07 14:18:51
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/detail/search.vue
 -->
@@ -62,8 +62,8 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">搜索</el-button>
-        <el-button type="primary" @click="onReset">清空</el-button>
+        <el-button type="primary" @click="onSubmit('search')">搜索</el-button>
+        <el-button type="primary" @click="onSubmit('reset')">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -99,8 +99,8 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      this.$emit("onSearch", this.value, "search");
+    onSubmit(reset) {
+      this.$emit("onSearch", this.value, reset);
     },
     onReset() {
       this.$refs.detailsSearch.resetFields();

@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2021-09-22 15:12:44
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-06 14:16:53
+ * @LastEditTime: 2022-05-07 14:16:42
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/Main/index.vue
 -->
@@ -55,9 +55,6 @@ export default {
     $route: {
       handler(route) {
         const { path, name, matched } = route;
-        console.log(route);
-        console.log(name);
-        console.log(getMenu());
         const currentMenuPath = `/${path.split("/")[1]}`;
         this.defaultActive = currentMenuPath;
         this.defaultActiveName = matched[0]["name"];

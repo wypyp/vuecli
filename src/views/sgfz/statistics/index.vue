@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2021-09-22 15:12:44
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-06 18:14:37
+ * @LastEditTime: 2022-05-07 15:05:46
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/statistics/index.vue
 -->
@@ -20,6 +20,7 @@
         </div>
         <div class="sgfz-list">
           <List
+            v-loading="loading"
             :tableList="tableList"
             :first="first"
             :searchData="searchData"
@@ -38,6 +39,7 @@
         </div>
         <div class="sgfz-list">
           <List2
+            v-loading="loading"
             :tableList="tableList"
             :second="second"
             :searchData="searchData"
@@ -58,13 +60,14 @@ export default {
   name: "main-page-wrapper",
   data() {
     return {
+      loading: false,
       first: [
         {
           props: "wellName",
           label: "井号",
           isShow: true,
           fixed: "left",
-          width: "80px",
+          width: "100px",
           immobilization: true,
         },
         {
@@ -75,14 +78,44 @@ export default {
           immobilization: true,
         },
 
-        { props: "accidentDate", label: "卡钻年份", isShow: false },
-        { props: "openTime", label: "卡钻开次", isShow: false },
-        { props: "bitSize", label: "钻头直径", isShow: false },
-        { props: "stuckPointHorizon", label: "卡点层位", isShow: false },
-        { props: "accidentBitHorizon", label: "钻头深度层位", isShow: false },
-        { props: "fluidType", label: "钻井液亚类", isShow: false },
-        { props: "stuckDrillType", label: "卡钻类型", isShow: false },
-        { props: "processingMethod", label: "解卡方法", isShow: false },
+        {
+          props: "accidentDate",
+          label: "卡钻年份",
+          isShow: false,
+          width: "200px",
+        },
+        { props: "openTime", label: "卡钻开次", isShow: false, width: "200px" },
+        { props: "bitSize", label: "钻头直径", isShow: false, width: "200px" },
+        {
+          props: "stuckPointHorizon",
+          label: "卡点层位",
+          isShow: false,
+          width: "200px",
+        },
+        {
+          props: "accidentBitHorizon",
+          label: "钻头深度层位",
+          isShow: false,
+          width: "200px",
+        },
+        {
+          props: "fluidType",
+          label: "钻井液亚类",
+          isShow: false,
+          width: "200px",
+        },
+        {
+          props: "stuckDrillType",
+          label: "卡钻类型",
+          isShow: false,
+          width: "200px",
+        },
+        {
+          props: "processingMethod",
+          label: "解卡方法",
+          isShow: false,
+          width: "200px",
+        },
 
         {
           props: "wellType",
@@ -128,7 +161,7 @@ export default {
           isShow: true,
           immobilization: true,
           fixed: "left",
-          width: "100px",
+          width: "150px",
         },
         {
           props: "structurePos",
@@ -136,7 +169,7 @@ export default {
           isShow: true,
           immobilization: true,
           fixed: "left",
-          width: "100px",
+          width: "150px",
         },
         {
           props: "wellName",
@@ -144,7 +177,7 @@ export default {
           isShow: true,
           immobilization: true,
           fixed: "left",
-          width: "80px",
+          width: "100px",
         },
         {
           props: "total",
@@ -166,6 +199,7 @@ export default {
         {
           props: "countWellNumber;",
           label: "统计井数",
+          width: "150px",
           isShow: true,
           immobilization: true,
         },
@@ -173,16 +207,20 @@ export default {
           props: "stickingWellNumber",
           label: "卡钻井数口",
           isShow: true,
+          width: "150px",
+
           immobilization: true,
         },
         {
           props: "stickingProbability",
           label: "卡钻概率%",
+          width: "150px",
           isShow: true,
           immobilization: true,
         },
         {
           label: "卡钻次数",
+          width: "150px",
           child: [
             {
               props: "sumStickingTimes",
@@ -207,7 +245,7 @@ export default {
               isShow: true,
               immobilization: true,
             },
-             {
+            {
               props: "lostTime",
               label: "平均损失时间",
               isShow: true,
@@ -283,10 +321,10 @@ export default {
         url = this.$apiList.base.searchRegionCount;
       }
       this.$axios.post(url, searchParam).then((res) => {
+        this.loading = false;
         this.tableList = res.data.sort((a, b) => {
           return a.wellName.localeCompare(b.wellName, "zh-CN");
         });
-        console.log(res.data);
         this.tableList.forEach((item) => {
           item["total"] = 1;
         });
@@ -295,7 +333,6 @@ export default {
     checkBoxChange(values) {
       const valueOb = {};
       values.forEach((item) => {
-        console.log(item);
         valueOb[item] = item;
       });
       this[this.activeName].forEach((item) => {
@@ -313,10 +350,11 @@ export default {
     },
     handleClick() {
       this.searchData.returnField = [];
-      console.log("")
       this.onSearchClick("reset");
+      this.loading = false;
     },
     onSearchClick(reset) {
+      this.loading = true;
       var searchParam = {
         indexName: "zwjy-accident-info",
         pageNum: this.paginationData.pageNum,
@@ -343,12 +381,11 @@ export default {
           }
         });
         searchParam["searchWildcardParam"] = temSearch;
-        console.log(this.searchData.wellName)
         if (this.searchData.wellName.length) {
           var wellNameArray = {
-            wellName: this.searchData['wellName']
-          }
-          searchParam['inSearchTextParam'] = wellNameArray 
+            wellName: this.searchData["wellName"],
+          };
+          searchParam["inSearchParam"] = wellNameArray;
         }
       }
       this.getList(this.activeName, searchParam);
@@ -380,7 +417,6 @@ export default {
     this.$axios
       .get(this.$apiList.base.getRegionInfo) // 统计区块 区块
       .then((res) => {
-        console.log(res);
         this.searchConfig["structurePos"] = res.data;
       });
     this.onSearchClick();

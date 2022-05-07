@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2021-09-22 15:12:44
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-05 16:47:25
+ * @LastEditTime: 2022-05-07 14:43:01
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/detail/index.vue
 -->
@@ -17,6 +17,7 @@
     </div>
     <div class="sgfz-list">
       <List
+        v-loading="loading"
         :tableList="tableList"
         v-model="paginationData"
         @onSearch="onSearchClick"
@@ -33,11 +34,12 @@ export default {
   name: "main-page-wrapper",
   data() {
     return {
+      loading:false,
       tableList: [],
       paginationData: {
         pageNum: 1,
-        pageSize: 10,
-        total: 10,
+        pageSize: 5,
+        total: 1,
       },
       searchConfig: {
         geoDescription: [2018, 2019, 2020],
@@ -59,25 +61,37 @@ export default {
   },
   methods: {
     onSearchClick(params, type) {
-      var temSearch = this.searchData;
-      Object.keys(temSearch).forEach((item) => {
-        const key = temSearch[item];
-        if (key === "" || key === null || key === undefined) {
-          delete temSearch[item];
-        }
-      });
+      this.loading = true
       var searchParam = {
-        searchWildcardParam: temSearch,
         indexName: "zwjy-accident-info",
         pageNum: this.paginationData.pageNum,
         pageSize: this.paginationData.pageSize,
       };
-      if (type === "search"){
-        this.paginationData.pageNum = 1
-        this.paginationData.pageSize = 10
-        searchParam.pageSize = 10
-        searchParam.pageNum = 1
+      if (type === "reset") {
+        this.searchData = {
+          geoDescription: null,
+          wellType: null,
+          wellPurpose: null,
+          completionWellDate: null,
+          wellName: null,
+          stuckPointHorizon: null,
+        };
+
+        this.paginationData.pageNum = 1;
+        this.paginationData.pageSize = 5;
+        searchParam.pageSize = 5;
+        searchParam.pageNum = 1;
+      } else {
+        var temSearch = {};
+        Object.keys(this.searchData).forEach((item) => {
+          const key = this.searchData[item];
+          if (key) {
+            temSearch[item] = this.searchData[item];
+          }
+        });
+        searchParam["searchWildcardParam"] = temSearch;
       }
+
       if (type === "num") {
         searchParam.pageSize = params;
         this.paginationData.pageSize = params;
@@ -86,12 +100,12 @@ export default {
         searchParam.pageNum = params;
         this.paginationData.pageNum = params;
       }
-
       this.$axios
         .post(this.$apiList.base.searchByVO, searchParam)
         .then((res) => {
+          this.loading = false
           this.tableList = res.data;
-          this.paginationData.total = res.total
+          this.paginationData.total = res.total;
         });
     },
   },
@@ -106,7 +120,6 @@ export default {
         this.$axios
           .get(this.$apiList.base.searchByField, { params })
           .then((res) => {
-            console.log(res);
             this.searchConfig[item] = res.data;
           });
       }

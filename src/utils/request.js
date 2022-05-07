@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2021-09-22 15:33:12
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-05 14:49:45
+ * @LastEditTime: 2022-05-07 10:53:10
  * @Description: 描述信息
  * @FilePath: /vuecli/src/utils/request.js
  */
@@ -54,7 +54,7 @@ service.interceptors.request.use(
 		// }
 		config.params.randomStr = requestId;
 		// config.headers['token'] = store.state.loginToken;
-		config.headers['token'] = localStorage.getItem('token');
+		config.headers['Authorization'] = localStorage.getItem('Authorization');
 		return config;
   },
 	error => Promise.reject({ msg: error.message })

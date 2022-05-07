@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2022-04-21 23:56:12
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-06 18:16:59
+ * @LastEditTime: 2022-05-07 14:15:10
  * @Description: 描述信息
  * @FilePath: /vuecli/src/views/sgfz/statistics/search2.vue
 -->
@@ -46,7 +46,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">统计</el-button>
-        <el-button type="primary" @click="onReset">清空</el-button>
+        <el-button type="primary" @click="onSubmit('reset')">清空</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -83,8 +83,8 @@ export default {
     handleCheckedCitiesChange(value) {
       this.$emit("checkBox2", value);
     },
-    onSubmit() {
-      this.$emit("onSearch", this.value);
+    onSubmit(reset) {
+      this.$emit("onSearch", reset);
     },
   },
 };

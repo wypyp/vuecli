@@ -2,7 +2,7 @@
  * @Author: WangYP
  * @Date: 2021-09-22 15:01:14
  * @LastEditors: ZhouJG
- * @LastEditTime: 2022-05-05 11:04:42
+ * @LastEditTime: 2022-05-07 10:54:29
  * @Description: 描述信息
  * @FilePath: /vuecli/src/router/index.js
  */
@@ -25,8 +25,8 @@ router.beforeResolve((to, from, next) => {
 
 router.beforeEach((to, from, next) => {
   const { query } = to;
-  if (query && query.token ) {
-    localStorage.setItem('token', query.token)
+  if (query && query.Authorization ) {
+    localStorage.setItem('Authorization', query.Authorization)
   }
   next();
 });
